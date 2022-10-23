@@ -13,6 +13,13 @@ The following techniques have been used:
  - Features are generated and the variables are checked for correlation.
  - Multiple sampling techinuqies are evaluated. The data set is split into train and test.
  - All the above said modelling techniques are tried and evaluated. The final metric used to evaluate is mean squared error.
+ 
+ ##environment steps
+ -install pip using sudo apt python3-pip
+ -Run 'pip install xtarfile[zspd in ubuntu]
+ -Run conda actiavate base
+ 
+ 
 
 ## To excute the script
 python < scriptname.py >
