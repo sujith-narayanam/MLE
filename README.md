@@ -12,7 +12,7 @@ The following techniques have been used:
  - We prepare and clean the data. We check and impute for missing values.
  - Features are generated and the variables are checked for correlation.
  - Multiple sampling techinuqies are evaluated. The data set is split into train and test.
- - All the above said modelling techniques are tried and evaluated. The final metric used to evaluate is mean squared error.
+ - All the above said modelling techniques are tried and evaluated. The final metric used to evaluate is mean squared  error.
  
 ## environment steps
  - Run conda activate base

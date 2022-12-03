@@ -22,7 +22,7 @@ def fetch_housing_data(housing_url, housing_path):
 
 
 fetch_housing_data(HOUSING_URL, HOUSING_PATH)
-import pandas as pd
+# import pandas as pd
 
 
 def load_housing_data(housing_path):
