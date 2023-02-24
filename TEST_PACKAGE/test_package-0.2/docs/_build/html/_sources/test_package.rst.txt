@@ -1,0 +1,37 @@
+test\_package package
+=====================
+
+Submodules
+----------
+
+test\_package.ingest\_data module
+---------------------------------
+
+.. automodule:: test_package.ingest_data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+test\_package.score module
+--------------------------
+
+.. automodule:: test_package.score
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+test\_package.train module
+--------------------------
+
+.. automodule:: test_package.train
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: test_package
+   :members:
+   :undoc-members:
+   :show-inheritance:
