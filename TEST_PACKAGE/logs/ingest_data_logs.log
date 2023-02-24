@@ -1,0 +1,103 @@
+24-Feb-23 21:28:24 - INFO - out path: ..\..\data\processed
+24-Feb-23 21:28:24 - INFO - mod path: ..\..\artifacts\models
+24-Feb-23 21:28:24 - WARNING - started executing ingest_data module
+24-Feb-23 21:28:24 - INFO - starting fetch_housing_data method
+24-Feb-23 21:28:24 - DEBUG - extracting data from the tarfile
+24-Feb-23 21:28:24 - DEBUG - extraction completed
+24-Feb-23 21:28:24 - DEBUG - started loading data
+24-Feb-23 21:28:24 - DEBUG - completed loading data
+24-Feb-23 21:28:24 - INFO - complete fetch_housing_data method
+24-Feb-23 21:28:24 - DEBUG - splitting the data
+24-Feb-23 21:28:24 - DEBUG - started saving the processed data
+24-Feb-23 21:28:24 - DEBUG - started saving data file
+24-Feb-23 21:28:24 - DEBUG - completed saving data file
+24-Feb-23 21:28:24 - DEBUG - started saving data file
+24-Feb-23 21:28:24 - DEBUG - completed saving data file
+24-Feb-23 21:28:24 - DEBUG - completed saving the processed data
+24-Feb-23 21:28:24 - DEBUG - final shape of housing_prepared: (16512, 17)
+24-Feb-23 21:28:24 - DEBUG - final shape of housing_test: (4128, 17)
+24-Feb-23 21:28:24 - WARNING - completed executing ingest_data module
+24-Feb-23 21:28:24 - DEBUG - tracking raw, train and test data using mlflow
+24-Feb-23 21:28:24 - INFO - creating C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\ingest
+24-Feb-23 21:28:24 - INFO - copying ..\..\data\ingest\housing_1.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\ingest
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\ingest\strat_test_set.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\ingest
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\ingest\strat_train_set.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\ingest
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\ingest\test_set.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\ingest
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\ingest\train_set.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\ingest
+24-Feb-23 21:28:25 - INFO - creating C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\processed
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\processed\test.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\processed
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\processed\train.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\processed
+24-Feb-23 21:28:25 - INFO - creating C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\raw
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\raw\housing.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\raw
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\raw\housing.tgz -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\raw
+24-Feb-23 21:28:25 - INFO - creating C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\train
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\train\final_model.pkl -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\train
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\train\grid_search.pkl -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\train
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\train\housing_labels.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\train
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\train\housing_prepared.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\train
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\train\imputer.pkl -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\train
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\train\lin_reg.pkl -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\train
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\train\rnd_search.pkl -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\train
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\train\strat_test_set.csv -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\train
+24-Feb-23 21:28:25 - INFO - copying ..\..\data\train\tree_reg.pkl -> C:\Users\sujith.narayana\Downloads\MLE-main\MLE-main\TEST_PACKAGE\src\test_package\mlruns\0\64ecce630d534bca8fdd2b48bef02845\artifacts\data\train
+24-Feb-23 21:28:25 - DEBUG - finished tracking raw, train and test data in artifacts of mlflow
+24-Feb-23 21:28:26 - WARNING - started executing train module
+24-Feb-23 21:28:26 - DEBUG - loading house data into data frame
+24-Feb-23 21:28:26 - DEBUG - started loading housing data function
+24-Feb-23 21:28:26 - DEBUG - completed loading housing data function
+24-Feb-23 21:28:26 - DEBUG - completed loading data in to data frame
+24-Feb-23 21:28:26 - DEBUG - shape of the loaded data set: (16512, 18)
+24-Feb-23 21:28:26 - DEBUG - keys inside the loaded data set: Index(['Unnamed: 0', 'longitude', 'latitude', 'housing_median_age',
+       'total_rooms', 'total_bedrooms', 'population', 'households',
+       'median_income', 'income_cat', 'rooms_per_household',
+       'bedrooms_per_room', 'population_per_household',
+       'ocean_proximity_INLAND', 'ocean_proximity_ISLAND',
+       'ocean_proximity_NEAR BAY', 'ocean_proximity_NEAR OCEAN',
+       'median_house_value'],
+      dtype='object')
+24-Feb-23 21:28:26 - INFO - Linear Regression
+24-Feb-23 21:28:26 - DEBUG - started training linear regression model
+24-Feb-23 21:28:30 - DEBUG - started saving to linear_regression pickle
+24-Feb-23 21:28:30 - DEBUG - complete saving to linear_regression pickle
+24-Feb-23 21:28:30 - DEBUG - completed linear regression
+24-Feb-23 21:28:30 - INFO - Decision Tree
+24-Feb-23 21:28:30 - DEBUG - start training decision tree model
+24-Feb-23 21:28:34 - DEBUG - started saving to decision_tree pickle
+24-Feb-23 21:28:34 - DEBUG - completed saving to decision_tree pickle
+24-Feb-23 21:28:34 - DEBUG - completed training decision regression model
+24-Feb-23 21:28:34 - INFO - Random Forest With Random Search
+24-Feb-23 21:28:34 - DEBUG - started random forest with random search with parameters: n_iter=10,cv=5
+24-Feb-23 21:28:34 - DEBUG - using neg_mean_squared error as scoring function
+24-Feb-23 21:31:30 - DEBUG - completed saving to random forest with random search pickle
+24-Feb-23 21:31:30 - DEBUG - completed random forest with random search
+24-Feb-23 21:31:30 - INFO - Random Forest With Grid Search
+24-Feb-23 21:31:30 - DEBUG - started random forest with grid search with parameters: cv=5
+24-Feb-23 21:31:30 - DEBUG - using neg_mean_squared_error as scoring function
+24-Feb-23 21:32:28 - DEBUG - started saving to random forest with grid search pickle
+24-Feb-23 21:32:28 - DEBUG - completed saving to random forest with grid search pickle
+24-Feb-23 21:32:28 - DEBUG - completed random forest with grid search
+24-Feb-23 21:32:28 - WARNING - complted executing train module
+24-Feb-23 21:32:28 - WARNING - started executing score module
+24-Feb-23 21:32:28 - DEBUG - loading house data into data frame
+24-Feb-23 21:32:28 - DEBUG - completed loading data in to data frame
+24-Feb-23 21:32:28 - INFO - calculating score for DECISION TREE
+24-Feb-23 21:32:28 - DEBUG - inside score function
+24-Feb-23 21:32:28 - DEBUG - exiting score function
+24-Feb-23 21:32:28 - INFO - Mean Squared Error for DECISION TREE is 0.6588920223502538
+24-Feb-23 21:32:28 - INFO - Root Mean Squared Error for DECISION TREE is 4445711489.671269
+24-Feb-23 21:32:28 - INFO - calculating score for LINEAR REGRESSION
+24-Feb-23 21:32:28 - DEBUG - inside score function
+24-Feb-23 21:32:28 - DEBUG - exiting score function
+24-Feb-23 21:32:28 - INFO - Mean Squared Error for LINEAR REGRESSION is 0.6601094832927682
+24-Feb-23 21:32:28 - INFO - Root Mean Squared Error for LINEAR REGRESSION is 4429844138.407149
+24-Feb-23 21:32:28 - INFO - calculating score for RANDOM FOREST WITH GRID SEARCH
+24-Feb-23 21:32:28 - DEBUG - inside score function
+24-Feb-23 21:32:28 - DEBUG - exiting score function
+24-Feb-23 21:32:28 - INFO - Mean Squared Error for RANDOM FOREST WITH GRID SEARCH is 46384.71238724991
+24-Feb-23 21:32:28 - INFO - Root Mean Squared Error for RANDOM FOREST WITH GRID SEARCH is 0.8349177659522455
+24-Feb-23 21:32:28 - INFO - calculating score for RANDOM FOREST WITH RANDOM SEARCH
+24-Feb-23 21:32:28 - DEBUG - inside score function
+24-Feb-23 21:32:28 - DEBUG - exiting score function
+24-Feb-23 21:32:28 - INFO - Mean Squared Error for RANDOM FOREST WITH RANDOM SEARCH is 2086042232.1569445
+24-Feb-23 21:32:28 - INFO - Root Mean Squared Error for RANDOM FOREST WITH RANDOM SEARCH is 45673.211318637805
+24-Feb-23 21:32:28 - WARNING - completed executing score module
