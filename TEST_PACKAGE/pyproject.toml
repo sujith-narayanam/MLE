@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "test_package"
+version = "v0.2"
+authors = [
+  { name="Sujith Narayanam" },
+]
+description = "A test package made based on the provided sample code which trains various Machine learning models on a dataset of housing prices and compare the results."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]

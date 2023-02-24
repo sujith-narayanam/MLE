@@ -2,8 +2,6 @@
 import os
 import tarfile
 
-# import matplotlib as mpl
-# import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import six
@@ -30,7 +28,6 @@ def fetch_housing_data(housing_url, housing_path):
 
 
 fetch_housing_data(HOUSING_URL, HOUSING_PATH)
-# import pandas as pd
 
 
 def load_housing_data(housing_path):
@@ -40,8 +37,6 @@ def load_housing_data(housing_path):
 
 housing = load_housing_data(HOUSING_PATH)
 
-# from sklearn.model_selection import train_test_split
-
 train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 
 housing["income_cat"] = pd.cut(
@@ -49,8 +44,6 @@ housing["income_cat"] = pd.cut(
     bins=[0.0, 1.5, 3.0, 4.5, 6.0, np.inf],
     labels=[1, 2, 3, 4, 5],
 )
-
-# from sklearn.model_selection import StratifiedShuffleSplit
 
 split = sklearn.model_selection.StratifiedShuffleSplit(
     n_splits=1, test_size=0.2, random_state=42
@@ -109,7 +102,6 @@ housing = strat_train_set.drop(
 )  # drop labels for training set
 housing_labels = strat_train_set["median_house_value"].copy()
 
-# from sklearn.impute import SimpleImputer
 
 imputer = SimpleImputer(strategy="median")
 
@@ -137,26 +129,17 @@ Dummy_df = housing[["ocean_proximity"]]
 housing_prepared = housing_tr.join(pd.get_dummies(Dummy_df, drop_first=True))
 housing_cat = Dummy_df.copy()
 
-# from sklearn.linear_model import LinearRegression
 
 lin_reg = sklearn.linear_model.LinearRegression()
 lin_reg.fit(housing_prepared, housing_labels)
-
-# from sklearn.metrics import mean_squared_error
 
 housing_predictions = lin_reg.predict(housing_prepared)
 lin_mse = mean_squared_error(housing_labels, housing_predictions)
 lin_rmse = np.sqrt(lin_mse)
 lin_rmse
 
-
-# from sklearn.metrics import mean_absolute_error
-
 lin_mae = mean_absolute_error(housing_labels, housing_predictions)
 lin_mae
-
-
-# from sklearn.tree import DecisionTreeRegressor
 
 tree_reg = DecisionTreeRegressor(random_state=42)
 tree_reg.fit(housing_prepared, housing_labels)
@@ -165,12 +148,6 @@ housing_predictions = tree_reg.predict(housing_prepared)
 tree_mse = mean_squared_error(housing_labels, housing_predictions)
 tree_rmse = np.sqrt(tree_mse)
 tree_rmse
-
-
-# from scipy.stats import randint
-# from sklearn.ensemble import RandomForestRegressor
-
-# from sklearn.model_selection import RandomizedSearchCV
 
 param_distribs = {
     "n_estimators": randint(low=1, high=200),
@@ -191,8 +168,6 @@ cvres = rnd_search.cv_results_
 for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
     print(np.sqrt(-mean_score), params)
 
-
-# from sklearn.model_selection import GridSearchCV
 
 param_grid = [
     # try 12 (3×4) combinations of hyperparameters
@@ -219,7 +194,6 @@ for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
 
 feature_importances = grid_search.best_estimator_.feature_importances_
 sorted(zip(feature_importances, housing_prepared.columns), reverse=True)
-
 
 final_model = grid_search.best_estimator_
 
