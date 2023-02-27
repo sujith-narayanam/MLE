@@ -1,0 +1,12 @@
+{
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    "editor.codeActionsOnSave": {
+    
+        "source.organizeImports": true
+    },
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "python.defaultInterpreterPath": "C:\\Users\\sujith.narayana\\Anaconda3\\python.exe",
+    "terminal.integrated.defaultProfile.windows": "Command Prompt"
+}

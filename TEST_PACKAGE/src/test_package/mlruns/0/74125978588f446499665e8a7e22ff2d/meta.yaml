@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/sujith.narayana/Downloads/MLE-main/MLE-main/TEST_PACKAGE/src/test_package/mlruns/0/74125978588f446499665e8a7e22ff2d/artifacts
+end_time: 1677254548796
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 74125978588f446499665e8a7e22ff2d
+run_name: Housing_Price
+run_uuid: 74125978588f446499665e8a7e22ff2d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1677254303549
+status: 3
+tags: []
+user_id: sujith.narayana

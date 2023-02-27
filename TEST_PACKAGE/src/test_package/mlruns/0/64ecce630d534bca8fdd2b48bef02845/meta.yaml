@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/sujith.narayana/Downloads/MLE-main/MLE-main/TEST_PACKAGE/src/test_package/mlruns/0/64ecce630d534bca8fdd2b48bef02845/artifacts
+end_time: 1677254305918
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 64ecce630d534bca8fdd2b48bef02845
+run_name: ingest_data
+run_uuid: 64ecce630d534bca8fdd2b48bef02845
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1677254303610
+status: 3
+tags: []
+user_id: sujith.narayana

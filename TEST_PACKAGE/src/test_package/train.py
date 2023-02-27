@@ -1,129 +1,102 @@
-# importing libraries
-import argparse
-import os
-import pickle
-
-import numpy as np
-import pandas as pd
-import six
-import sklearn
-from scipy.stats import randint
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.impute import SimpleImputer
-from sklearn.tree import DecisionTreeRegressor
+"""
+A script (train.py) to train the model(s).
+The script should accept arguments for input (dataset) and output folders (model pickle)
+"""
 
 
-def income_cat_proportions(data):
-    """gives proportion of each unique value present in income cat
+def start_train():
+    import argparse
+    import logging
+    import os
+    import pickle
 
-    Args:
-        data (dataframe): dataframes for which the proportion of income_category column is to be calculated
+    import mlflow
+    import mlflow.sklearn
+    import pandas as pd
+    from mlflow.models.signature import infer_signature
+    from scipy.stats import randint
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.linear_model import LinearRegression
+    from sklearn.model_selection import GridSearchCV
+    from sklearn.model_selection import RandomizedSearchCV as rscv
+    from sklearn.tree import DecisionTreeRegressor
 
-    Returns:
-        series: proportions of income_categories are provided as output
-    """
-    return data["income_cat"].value_counts() / len(data)
-
-
-# parser = argparse.ArgumentParser()
-# parser.add_argument(
-#     "input_path",
-#     type=str,
-#     help="output path of the ingest script will be stored at this location",
-# )
-
-
-# parser.add_argument(
-#     "output_path",
-#     type=str,
-#     help="output path of the train script will be stored at this location",
-# )
-
-# args = parser.parse_args()
-# output_path = args.output_path
-# input_path = args.input_path
-
-# print("input_path")
-# input_path = str("C:/Users/sujith.narayana/Downloads/MLE-main/MLE-main/TEST_PACKAGE/data/ingest")
-# print("output_path")
-# output_path = str("C:/Users/sujith.narayana/Downloads/MLE-main/MLE-main/TEST_PACKAGE/data/train")
-
-
-def train(input_path, output_path):
-    train_set = pd.read_csv(input_path + "/train_set.csv")
-    test_set = pd.read_csv(input_path + "/test_set.csv")
-    strat_train_set = pd.read_csv(input_path + "/strat_train_set.csv")
-    strat_test_set = pd.read_csv(input_path + "/strat_test_set.csv")
-    housing = pd.read_csv(input_path + "/housing_1.csv")
-
-    compare_props = pd.DataFrame(
-        {
-            "Overall": income_cat_proportions(housing),
-            "Stratified": income_cat_proportions(strat_test_set),
-            "Random": income_cat_proportions(test_set),
-        }
-    ).sort_index()
-
-    compare_props["Rand. %error"] = (
-        100 * compare_props["Random"] / compare_props["Overall"] - 100
-    )
-    compare_props["Strat. %error"] = (
-        100 * compare_props["Stratified"] / compare_props["Overall"] - 100
+    logging.basicConfig(
+        filename=os.path.join("..", "..", "logs", "train_logs.log"),
+        filemode="w",
+        level=logging.DEBUG,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        datefmt="%d-%b-%y %H:%M:%S",
     )
 
-    for set_ in (strat_train_set, strat_test_set):
-        set_.drop("income_cat", axis=1, inplace=True)
+    logging.warning("started executing train module")
 
-    housing = strat_train_set.copy()
-    housing.plot(kind="scatter", x="longitude", y="latitude")
-    housing.plot(kind="scatter", x="longitude", y="latitude", alpha=0.1)
-
-    corr_matrix = housing.corr()
-    corr_matrix["median_house_value"].sort_values(ascending=False)
-
-    housing["dummy"] = housing["total_rooms"] / housing["households"]
-    housing.rename(columns={"dummy": "rooms_per_household"}, inplace=True)
-
-    housing["dummy"] = housing["total_bedrooms"] / housing["total_rooms"]
-    housing.rename(columns={"dummy": "bedrooms_per_room"}, inplace=True)
-
-    housing["dummy"] = housing["population"] / housing["households"]
-    housing.rename(columns={"dummy": "population_per_household"}, inplace=True)
-
-    housing = strat_train_set.drop(
-        "median_house_value", axis=1
-    )  # drop labels for training set
-    housing_labels = strat_train_set["median_house_value"].copy()
-
-    imputer = SimpleImputer(strategy="median")
-
-    housing_num = housing.drop(
-        ["ocean_proximity", "Unnamed: 0"], axis=1, errors="ignore"
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "data_path",
+        default="processed",
+        help="specifies the data folder",
+        type=str,
     )
-
-    imputer.fit(housing_num)
-    X = imputer.transform(housing_num)
-
-    housing_tr = pd.DataFrame(X, columns=housing_num.columns, index=housing.index)
-
-    housing_tr["dummy"] = housing_tr["total_rooms"] / housing_tr["households"]
-    housing_tr.rename(columns={"dummy": "rooms_per_household"}, inplace=True)
-    housing_tr["bedrooms_per_room"] = (
-        housing_tr["total_bedrooms"] / housing_tr["total_rooms"]
+    parser.add_argument(
+        "model_path",
+        default="models",
+        help="specifies the model folder",
+        type=str,
     )
-    housing_tr["population_per_household"] = (
-        housing_tr["population"] / housing_tr["households"]
-    )
+    args = parser.parse_args()
+    DATA_PATH = os.path.join("..", "..", "data", args.data_path)
+    MOD_PATH = os.path.join("..", "..", "artifacts", args.model_path)
 
-    Dummy_df = housing[["ocean_proximity"]]
-    housing_prepared = housing_tr.join(pd.get_dummies(Dummy_df, drop_first=True))
-    housing_cat = Dummy_df.copy()
+    def load_housing_data(housing_path=DATA_PATH):
+        logging.debug("started loading housing data function")
+        csv_path = os.path.join(housing_path, "train.csv")
+        logging.debug("completed loading housing data function")
+        return pd.read_csv(csv_path)
 
-    lin_reg = sklearn.linear_model.LinearRegression()
+    logging.debug("loading house data into data frame")
+    housing = load_housing_data()
+    logging.debug("completed loading data in to data frame")
+
+    logging.debug(f"shape of the loaded data set: {housing.shape}")
+    logging.debug(f"keys inside the loaded data set: {housing.keys()}")
+    housing_labels = housing["median_house_value"]
+    del housing["median_house_value"]
+    housing_prepared = housing.copy()
+
+    logging.info("Linear Regression")
+
+    logging.debug("started training linear regression model")
+    lin_reg = LinearRegression()
     lin_reg.fit(housing_prepared, housing_labels)
+    signature = infer_signature(
+        housing_prepared, lin_reg.predict(housing_prepared)
+    )
+    mlflow.sklearn.log_model(lin_reg, "Linear_Regression", signature=signature)
 
+    logging.debug("started saving to linear_regression pickle")
+    path = os.path.join(MOD_PATH, "linear_regression.pkl")
+    pickle.dump(lin_reg, open(path, "wb"))
+
+    logging.debug("complete saving to linear_regression pickle")
+    logging.debug("completed linear regression")
+
+    logging.info("Decision Tree")
+
+    logging.debug("start training decision tree model")
     tree_reg = DecisionTreeRegressor(random_state=42)
     tree_reg.fit(housing_prepared, housing_labels)
+    signature = infer_signature(
+        housing_prepared, tree_reg.predict(housing_prepared)
+    )
+    mlflow.sklearn.log_model(tree_reg, "Decision_Tree", signature=signature)
+
+    logging.debug("started saving to decision_tree pickle")
+    path = os.path.join(MOD_PATH, "decision_tree.pkl")
+    pickle.dump(tree_reg, open(path, "wb"))
+
+    logging.debug("completed saving to decision_tree pickle")
+    logging.debug("completed training decision regression model")
 
     param_distribs = {
         "n_estimators": randint(low=1, high=200),
@@ -131,7 +104,14 @@ def train(input_path, output_path):
     }
 
     forest_reg = RandomForestRegressor(random_state=42)
-    rnd_search = sklearn.model_selection.RandomizedSearchCV(
+
+    logging.info("Random Forest With Random Search")
+
+    logging.debug(
+        "started random forest with random search with parameters: n_iter=10,cv=5"
+    )
+    logging.debug("using neg_mean_squared error as scoring function")
+    rnd_search = rscv(
         forest_reg,
         param_distributions=param_distribs,
         n_iter=10,
@@ -140,17 +120,44 @@ def train(input_path, output_path):
         random_state=42,
     )
     rnd_search.fit(housing_prepared, housing_labels)
+    signature = infer_signature(
+        housing_prepared, rnd_search.predict(housing_prepared)
+    )
+    mlflow.sklearn.log_model(
+        rnd_search, "Random_Forest(with random_search)", signature=signature
+    )
+    path = os.path.join(MOD_PATH, "random_forest_with_random_search.pkl")
+    pickle.dump(rnd_search, open(path, "wb"))
+
+    logging.debug(
+        "completed saving to random forest with random search pickle"
+    )
+    logging.debug("completed random forest with random search")
+
+    # cvres = rnd_search.cv_results_
+    # for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
+    #     print(np.sqrt(-mean_score), params)
 
     param_grid = [
         # try 12 (3×4) combinations of hyperparameters
         {"n_estimators": [3, 10, 30], "max_features": [2, 4, 6, 8]},
         # then try 6 (2×3) combinations with bootstrap set as False
-        {"bootstrap": [False], "n_estimators": [3, 10], "max_features": [2, 3, 4]},
+        {
+            "bootstrap": [False],
+            "n_estimators": [3, 10],
+            "max_features": [2, 3, 4],
+        },
     ]
 
+    logging.info("Random Forest With Grid Search")
+
+    logging.debug(
+        "started random forest with grid search with parameters: cv=5"
+    )
+    logging.debug("using neg_mean_squared_error as scoring function")
     forest_reg = RandomForestRegressor(random_state=42)
     # train across 5 folds, that's a total of (12+6)*5=90 rounds of training
-    grid_search = sklearn.model_selection.GridSearchCV(
+    grid_search = GridSearchCV(
         forest_reg,
         param_grid,
         cv=5,
@@ -159,21 +166,25 @@ def train(input_path, output_path):
     )
     grid_search.fit(housing_prepared, housing_labels)
 
+    grid_search.best_params_
+    # cvres = grid_search.cv_results_
+    # for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
+    #     print(np.sqrt(-mean_score), params)
+
     feature_importances = grid_search.best_estimator_.feature_importances_
     sorted(zip(feature_importances, housing_prepared.columns), reverse=True)
+    signature = infer_signature(
+        housing_prepared, grid_search.predict(housing_prepared)
+    )
+    mlflow.sklearn.log_model(
+        grid_search, "Random_Forest(with grid_search)", signature=signature
+    )
 
-    final_model = grid_search.best_estimator_
+    logging.debug("started saving to random forest with grid search pickle")
+    path = os.path.join(MOD_PATH, "random_forest_with_grid_search.pkl")
+    pickle.dump(grid_search, open(path, "wb"))
 
-    if not os.path.isdir(output_path):
-        os.makedirs(output_path)
+    logging.debug("completed saving to random forest with grid search pickle")
+    logging.debug("completed random forest with grid search")
 
-    pickle.dump(lin_reg, open(output_path + "/lin_reg.pkl", "wb"))
-    pickle.dump(tree_reg, open(output_path + "/tree_reg.pkl", "wb"))
-    pickle.dump(final_model, open(output_path + "/final_model.pkl", "wb"))
-    pickle.dump(rnd_search, open(output_path + "/rnd_search.pkl", "wb"))
-    pickle.dump(imputer, open(output_path + "/imputer.pkl", "wb"))
-    pickle.dump(grid_search, open(output_path + "/grid_search.pkl", "wb"))
-
-    housing_labels.to_csv(output_path + "/housing_labels.csv", index=False)
-    housing_prepared.to_csv(output_path + "/housing_prepared.csv", index=False)
-    strat_test_set.to_csv(output_path + "/strat_test_set.csv", index=False)
+    logging.warning("complted executing train module")
